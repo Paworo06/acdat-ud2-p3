@@ -134,7 +134,28 @@ public class Main {
     // 7. finally -> mensaje "[renombrar] Fin"
     private static void renombrarSeguro(File base, String origenRel, String destinoRel) {
         // TODO implementar
-        System.err.println("TODO renombrarSeguro");
+        File origen = new File(base, origenRel);
+        File destino = new File(base, destinoRel);
+
+        try {
+            if (!origen.exists()) {
+                System.err.println("El fichero origen no existe");
+            } else if(destino.exists()) {
+                System.err.println("El fichero destino ya existe");
+            } else if (origen.getParent() == null) {
+                System.err.println("El directorio padre del fichero de destino no existe");
+            } else {
+                if (origen.renameTo(destino)) {
+                    System.out.println("Buena bro");
+                } else {
+                    System.out.println("Espabila bro");
+                }
+            }
+        } catch (SecurityException se) {
+            System.err.println("Error de seguridad");
+        } finally {
+            System.out.println("[renombrar] Fin");
+        }
     }
 
     // TODO: cambiarPermiso
